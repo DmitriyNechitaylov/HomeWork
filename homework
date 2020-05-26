@@ -1,0 +1,79 @@
+<? 
+class Person{
+  public $name;
+  public $lastname;
+  public $age;
+  public $mother;
+  public $father;
+  public $grannym;
+  public $grandpam;
+  public $grannyp;
+  public $grandpap;
+  
+  function __construct($n,$l,$a,$m=null,$f=null,$gmm=null,$gpm=null,$gmp=null,$gpp=null){
+    $this->name = $n;
+    $this->lastname = $l;
+    $this->age = $a;
+    $this->mother = $m;
+    $this->father = $f;
+    $this->grannym = $gmm;             //Со стороны матери
+    $this->grandpam = $gpm;
+    $this->grannyp = $gmp;             //Со стороны отца
+    $this->grandpap = $gpp;
+  }
+  public function sayHi(){
+    $str = "Hi, my name is ".$this->name."<br>";
+    return $str;
+  }
+  public function tellAboutYourParents(){
+    $str = '';
+    if ($this->mother == null and $this->father == null) $str = "Mother is null<br>Father is null<br>";
+    else if ($this->mother == null) $str = "Mother  is null<br>My father: ".$this->father->name."<br>";
+    else if ($this->father == null) $str = "Father is null<br>My mother: ".$this->mother->name."<br>";
+    else
+      $str = "My mother is ".$this->mother->name."<br>
+              My father is ".$this->father->name."<br>";
+    return $str;
+  }
+  
+  public function tellAboutYourGrangparentsM(){
+    $str = '';
+    if ($this->grannym == null and $this->grandpam == null) $str = "Granny on my mother's side is null<br>Grandpa on my mother's side is null<br>";
+    else if ($this->grannym == null) $str = "Granny on my mother's side  is null<br>My Grandpa is ".$this->grandpam->name."<br>";
+    else if ($this->grandpam == null) $str = "Grandpa on my mother's side null<br>My Granny is ".$this->grannym->name."<br>";
+    else
+      $str = "My granny on mother's side is ".$this->grannym->name."<br>
+              My grandpa on mother's side is ".$this->grandpam->name."<br>";
+    return $str;
+  }
+  
+  public function tellAboutYourGrangparentsP(){
+    $str = '';
+    if ($this->grannyp == null and $this->grandpap == null) $str = "Granny on my father's side is null<br>Grandpa on my father's side is null<br>";
+    else if ($this->grannyp == null) $str = "Granny on my father's side is null<br>Grandpa on my father's side is ".$this->grandpap->name."<br>";
+    else if ($this->grandpap == null) $str = "Grandpa on my father's side is null<br>Granny on my father's side is ".$this->grannyp->name."<br>";
+    else
+      $str = "My granny on father's side is ".$this->grannyp->name."<br>
+              My grandpa on father's side is ".$this->grandpap->name."<br>";
+    return $str;
+  }
+  
+  public function tellAboutYourself(){
+    print $this->sayHi();
+    print $this->tellAboutYourParents();
+    print $this->tellAboutYourGrangparentsM();
+    print $this->tellAboutYourGrangparentsP();
+  }
+}
+
+$charles = new Person("Charles","d'Artagnan",250);
+$lesbia = new Person("Lesbia","d'Artagnan",60);
+$hose = new Person("Hose","Suarov",68);
+$avrora = new Person("Avrora","Suarova",50);
+$alex = new Person("Alex","d'Artagnan",36,$lesbia,$charles);
+$jula = new Person("Jula","d'Artagnan",34,$avrora,$hose);
+$olga = new Person("Olga","d'Artagnan",7,$jula,$alex,$lesbia,$charles,$avrora,$hose);
+$igor = new Person("Igor","d'Artagnan",5,$jula,$alex,$lesbia,$charles,$avrora,$hose);
+$lui = new Person("Lui","d'Artagnan",10,$jula,$alex,$lesbia,$charles,$avrora,$hose);
+echo $lui->tellAboutYourself();
+?>
